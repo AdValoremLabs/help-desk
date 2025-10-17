@@ -1,0 +1,25 @@
+name: Kit Support
+description: Get help with a purchased kit
+labels: [support, triage]
+body:
+  - type: dropdown
+    id: kit
+    attributes:
+      label: Which kit?
+      options: [Home Assistant, Proxmox Node, RetroPie]
+    validations: { required: true }
+  - type: input
+    id: order
+    attributes:
+      label: Order/Marketplace (optional)
+      placeholder: eBay/Etsy order # (if applicable)
+  - type: textarea
+    id: steps
+    attributes:
+      label: What happened?
+      description: Tell us what you tried, and what you expected to happen.
+  - type: textarea
+    id: env
+    attributes:
+      label: Environment
+      description: TV/Monitor model (RetroPie), Network type (HA/Proxmox), anything unusual.
