@@ -1,0 +1,25 @@
+name: Home Assistant kit support
+description: Troubleshoot your Home Assistant kit
+title: "[HA] Short, clear summary"
+labels: ["support","home-assistant","triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Docs:** https://advaloremlabs.github.io/home-assistant/
+        If you already tried the quickstart/troubleshooting in the docs, tell us what you observed.
+  - type: input
+    id: order
+    attributes:
+      label: Order/Marketplace (optional)
+      placeholder: eBay/Etsy order #
+  - type: textarea
+    id: steps
+    attributes:
+      label: What happened?
+      description: What did you do, what did you expect, and what actually happened?
+  - type: textarea
+    id: env
+    attributes:
+      label: Network/Environment
+      description: Ethernet or Wi-Fi? Router brand? Anything unusual?

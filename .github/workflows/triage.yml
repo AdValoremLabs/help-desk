@@ -1,0 +1,16 @@
+name: Triage
+on:
+  issues:
+    types: [opened]
+jobs:
+  route:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions-ecosystem/action-add-labels@v1
+        if: "!contains(github.event.issue.labels.*.name, 'triage')"
+        with:
+          labels: triage
+      - uses: pozil/auto-assign-issue@v1
+        with:
+          assignees: AdValoremLabs
+          numOfAssignee: 1

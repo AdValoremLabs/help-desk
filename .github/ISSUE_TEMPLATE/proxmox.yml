@@ -1,0 +1,23 @@
+name: Proxmox node support
+description: Troubleshoot your Proxmox kit
+title: "[PMX] Short, clear summary"
+labels: ["support","proxmox","triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Docs:** https://advaloremlabs.github.io/proxmox/
+  - type: input
+    id: order
+    attributes:
+      label: Order/Marketplace (optional)
+      placeholder: eBay/Etsy order #
+  - type: textarea
+    id: steps
+    attributes:
+      label: What happened?
+  - type: textarea
+    id: env
+    attributes:
+      label: Storage/Network details
+      description: NVMe base? LVM/ZFS? Ethernet? Browser/OS?

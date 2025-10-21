@@ -1,0 +1,22 @@
+name: RetroPie kit support
+description: Troubleshoot your RetroPie kit (no ROMs provided)
+title: "[RP] Short, clear summary"
+labels: ["support","retropie","triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        **Docs:** https://advaloremlabs.github.io/retropie/
+  - type: input
+    id: order
+    attributes:
+      label: Order/Marketplace (optional)
+  - type: textarea
+    id: steps
+    attributes:
+      label: What happened?
+  - type: textarea
+    id: env
+    attributes:
+      label: TV/Display & Controllers
+      description: TV model? HDMI? Which controller brand/model?
