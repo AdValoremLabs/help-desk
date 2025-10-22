@@ -1,16 +1,54 @@
 name: Triage
 on:
   issues:
-    types: [opened]
+    types: [opened, edited, reopened]
+
+permissions:
+  issues: write
+
 jobs:
   route:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions-ecosystem/action-add-labels@v1
-        if: "!contains(github.event.issue.labels.*.name, 'triage')"
+      - name: Ensure triage label
+        uses: actions-ecosystem/action-add-labels@v1
         with:
           labels: triage
-      - uses: pozil/auto-assign-issue@v1
+
+      # Label by title tag if present
+      - name: Label by title tag
+        if: startsWith(github.event.issue.title, '[HA]') || startsWith(github.event.issue.title, '[PMX]') || startsWith(github.event.issue.title, '[RP]')
+        uses: actions-ecosystem/action-add-labels@v1
         with:
-          assignees: AdValoremLabs
+          labels: >
+            ${{
+              startsWith(github.event.issue.title, '[HA]') && 'home-assistant' ||
+              startsWith(github.event.issue.title, '[PMX]') && 'proxmox' ||
+              startsWith(github.event.issue.title, '[RP]') && 'retropie' ||
+              ''
+            }}
+
+      # Fallback: detect kit from body text if no tag
+      - name: Fallback body detection (Home Assistant)
+        if: "!contains(github.event.issue.title, '[HA]') && (contains(github.event.issue.body, 'Home Assistant') || contains(github.event.issue.body, 'home-assistant'))"
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          labels: home-assistant
+
+      - name: Fallback body detection (Proxmox)
+        if: "!contains(github.event.issue.title, '[PMX]') && contains(github.event.issue.body, 'Proxmox')"
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          labels: proxmox
+
+      - name: Fallback body detection (RetroPie)
+        if: "!contains(github.event.issue.title, '[RP]') && contains(github.event.issue.body, 'RetroPie')"
+        uses: actions-ecosystem/action-add-labels@v1
+        with:
+          labels: retropie
+
+      - name: Auto-assign to maintainer
+        uses: pozil/auto-assign-issue@v1
+        with:
+          assignees: AdValoremLabs   # ← replace with your GitHub username if different
           numOfAssignee: 1
